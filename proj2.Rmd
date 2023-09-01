@@ -11,5 +11,5 @@ output: html_document
 ```
 
 # My HTML Output
-## - Subtitle 1
+## Subtitle 1
 
