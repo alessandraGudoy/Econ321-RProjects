@@ -1,0 +1,15 @@
+---
+title: "Alessandra Gudoy Econ 321 Project 2"
+date: "2023-09-04"
+output: html_document
+---
+
+```{r warning=F, message=F, echo=T}
+
+# This is the code block for R
+
+```
+
+# My HTML Output
+## - Subtitle 1
+
