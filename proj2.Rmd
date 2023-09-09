@@ -4,12 +4,24 @@ date: "2023-09-04"
 output: html_document
 ---
 
-```{r warning=F, message=F, echo=T}
+My HTML Output
 
-# This is the code block for R
+- Subtitle 1
+    - Subtitle 1
+        - Subsubtitle 1
+            1. *This text is in italic.*
+            2. **This text is bold.**
+        - Subsubtitle 2
+            - This is an image ![](/Users/marifemamuad/Desktop/UH_FALL2023/ECON 321/rmarkdown.png)
+            - This is a table from "iris" dataset
+                  
+
+```{r echo=T, message=FALSE, warning=FALSE}
+
+data <- iris[1:4,]
+knitr::kable(data, caption="Table with kable")
 
 ```
 
-# My HTML Output
-## Subtitle 1
+
 
