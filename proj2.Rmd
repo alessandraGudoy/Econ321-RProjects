@@ -6,12 +6,12 @@ output: html_document
 
 <font size=15> My HTML Output </font>
 
-- <font size="15"> Subtitle 1 </font>
-    - <font size=5> Subsubtitle 1 </font>
-        - <font size=2> Subsubsubtitle 1 </font>
+- ## Subtitle 1 
+    - ### Subsubtitle 1
+        - #### Subsubsubtitle 1
             1. *This text is in italic.*
             2. **This text is bold.**
-        - <font size=2> Subsubsubtitle 2 </font>
+        - #### Subsubsubtitle 2
             - This is an image ![](/Users/marifemamuad/Desktop/UH_FALL2023/ECON 321/rmarkdown.png)
             - This is a table from "iris" dataset
                   
