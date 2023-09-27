@@ -78,7 +78,7 @@ Student = data.frame(
 ```
 
 - ### Descriptive Statistics
-```{r Descriptive Statistics echo=TRUE, warning=FALSE, message=FALSE}
+```{r Descriptive Statistics, echo=TRUE, warning=FALSE, message=FALSE}
 
 summary(Student[,2:4])
 
@@ -94,15 +94,54 @@ boxplot(Student[,2:4], main="Student Grades", xlab="Assignment", ylab="Grade", b
 - ### Histogram for exam grades
 ```{r Exam Grade Histograms, echo=TRUE, warning=FALSE, message=FALSE}
 
+hist(Student$XM, 
+ col="lightskyblue", 
+ border="black",
+ prob = TRUE, 
+ xlab = "Exam grades",
+ ylim = c(0, 0.035),
+ main = "Exam Grades")
+ lines(density(Student$XM), # this adds density line
+ lwd = 2, # thickness of line
+ col = "blue")
+
 ```
 
-- ### 
+- ### Correlation matrix for numerical data
+```{r Correlation Matrix, echo=TRUE, warning=FALSE, message=FALSE}
+
+round(cor(Student[,2:4]), 2)
+
+```
+
+- ### Scatterplot for numerical data
+```{r Scatterplot, echo=TRUE, warning=FALSE, message=FALSE}
+
+plot(Student$HW, Student$XM, pch=20, main = "Homework & Quiz Grades vs Exam Grade", xlab = "Homework (black) and Quiz (red)", ylab = "Exam Grade")
+points(Student$QZ, Student$XM, pch=20, col= "red")
+
+```
+
+- ### Adding a least square line to the scatter plot
+```{r LSRL, echo=TRUE, warning=FALSE, message=FALSE}
+
+plot(Student$HW, Student$XM, pch=20, main = "Homework & Quiz Grades vs Exam Grade", xlab = "Homework (black) and Quiz (red)", ylab = "Exam Grade")
+points(Student$QZ, Student$XM, pch=20, col= "red")
+
+abline(lm(Student$XM ~ Student$HW)) # lm() is the code for OLS least Square Line
+abline(lm(Student$XM ~ Student$QZ), col="red")
+
+```
+
+- #### What are the slope and the intercept of the Least Square Line for y = XM and x = HW?
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
-
+s=summary(lm(Student$XM ~ Student$HW))
 ```
+      - The slope is b = `r s$coefficients[2]` and the intercept is a = `r s$coefficients[1]`
 
-- ### 
+
+- #### What are the slope and the intercept of the Least Square Line for y = XM and x = QZ?
 ```{r echo=TRUE, warning=FALSE, message=FALSE}
-
+s=summary(lm(Student$XM ~ Student$QZ))
 ```
-
+      - The slope is b = `r s$coefficients[2]` and the intercept is a = `r s$coefficients[1]`
