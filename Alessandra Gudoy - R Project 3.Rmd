@@ -46,8 +46,8 @@ df = as.data.frame(counts)
 ggplot(df, aes(x="", y=Freq, fill=categories)) + 
   geom_bar(width=1, stat="identity") + 
   coord_polar("y", start=0) +
-      theme_void() + theme(legend.position="none") + 
-      geom_text(aes(label=categories), position = position_stack(vjust = 0.5), color = "white", size=2)
+      theme_void() + theme(legend.position="right") + 
+      geom_text(aes(label=categories), position = position_stack(vjust = 0.5), color = "white", size=2.5)
 
 ```
 
