@@ -1,0 +1,85 @@
+---
+title: "Alessandra Gudoy - R Project 4"
+author: "Alessandra Gudoy"
+date: "12/08/2023"
+output: html_document
+---
+
+```{r Libraries, echo=TRUE, warning=FALSE, messsage=FALSE}
+library(ggplot2)
+library(palmerpenguins)
+library(car)
+library(ggstatsplot)
+```
+
+```{r Getting Data, echo=TRUE, warning=FALSE, messsage=FALSE}
+
+dat <- data.frame(species = penguins$species, flipper_length_mm = penguins$flipper_length_mm)
+
+summary(dat)
+
+```
+
+The function summary(data) outputs the summary statistics of the given data (the flipper length of three different species of penguins-Adelie, Chinstrap, Gentoo). It outputs the five-number summary (the minimum length, the first quartile, median, third quartile, and maximum length), the mean of the flipper lengths, and the number of values missing, and therefore, excluded (NA, last row of table).
+
+```{r PLOTTING, echo=TRUE, warning=FALSE, messsage=FALSE}
+
+# SCATTERPLOT
+ggplot(dat) +
+  aes(x = species, y = flipper_length_mm, color = species) +
+  geom_jitter() +
+  theme(legend.position = "none")
+```
+
+A plot showing the different flipper lengths of the different species, where the species are on the x-axis, while the length of the flippers (in mm) are on the y-axis.
+
+```{r BOXPLOT, echo=TRUE, warning=FALSE, message=FALSE}
+# BOXPLOT
+boxplot(flipper_length_mm ~ species, data = dat)
+```
+
+A boxplot of the flipper lengths of the different species, where each section of each boxplot contains 25% of the data, the darkest line is the median, the box contains 50% of the data, and circles are outliers determined by the 1.5xIQR Rule.
+
+```{r HISTOGRAM & NORMALITY PLOT, echo=TRUE, warning=FALSE, messsage=FALSE}
+res_anova <- aov(flipper_length_mm ~ species, data = dat)
+
+par(mfrow = c(1, 2)) # combine plots
+
+# Histogram
+hist(res_anova$residuals)
+
+# Normality plot
+qqPlot(res_anova$residuals,  id = FALSE ) # id = FALSE to remove point identification
+```
+
+```{r EQUAL VARIANCES, echo=TRUE, warning=FALSE, messsage=FALSE}
+
+# 1.Equal variances
+plot(res_anova, which = 3)
+
+```
+
+```{r BOX/VIOLIN PLOTS, echo=TRUE, warning=FALSE, messsage=FALSE}
+
+ggbetweenstats(
+  data = dat,
+  x = species,
+  y = flipper_length_mm,
+  type = "parametric", # ANOVA or Kruskal-Wallis
+  var.equal = TRUE, # ANOVA or Welch ANOVA
+  plot.type = "box",
+  pairwise.comparisons = TRUE,
+  pairwise.display = "significant",
+  centrality.plotting = FALSE,
+  bf.message = FALSE
+)
+
+```
+
+```{r SUMMARY OF ANOVA, echo=TRUE, warning=FALSE, messsage=FALSE}
+
+summary(res_anova)
+
+```
+
+
