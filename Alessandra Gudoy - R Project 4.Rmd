@@ -20,6 +20,7 @@ summary(dat)
 
 ```
 
+
 The function summary(data) outputs the summary statistics of the given data (the flipper length of three different species of penguins-Adelie, Chinstrap, Gentoo). It outputs the five-number summary (the minimum length, the first quartile, median, third quartile, and maximum length), the mean of the flipper lengths, and the number of values missing, and therefore, excluded (NA, last row of table).
 
 From the data, we can see that 152 flipper lengths came from the Adelie species, 68 from the Chinstrap species, and 124 from the Gentoo species. Two values are missing (one Adelie, one Gentoo). The minimum flipper length is 172.0 mm, the maximum flipper length is 231.0 mm, the median is 197.0 mm. The lower (or first) quartile is 190.0 mm and the upper (or third) quartile is 213.0 mm. The mean of the flipper lengths is 200.9. Because the median and mean are close in value, we can guess that the distribution is more or less symmetric.
@@ -33,6 +34,7 @@ ggplot(dat) +
   theme(legend.position = "none")
 ```
 
+
 A plot showing the different flipper lengths of the different species, where the species are on the x-axis, while the length of the flippers (in mm) are on the y-axis. The red dots represent the flipper lengths for the Adelie species, green for Chinstrap, and blue for Gentoo.
 
 The plot shows that the Gentoo may have a flippers that are a bit longer than the Adelie penguins, while the Gentoo species have longer flippers than both Gentoo penguins and Adelie penguins.
@@ -41,6 +43,7 @@ The plot shows that the Gentoo may have a flippers that are a bit longer than th
 # BOXPLOT
 boxplot(flipper_length_mm ~ species, data = dat)
 ```
+
 
 A boxplot of the flipper lengths of the different species, where each section of each boxplot contains 25% of the data, the darkest line is the median, the box contains 50% of the data, and circles are outliers determined by the 1.5xIQR Rule.
 
@@ -58,12 +61,19 @@ hist(res_anova$residuals)
 qqPlot(res_anova$residuals,  id = FALSE ) # id = FALSE to remove point identification
 ```
 
+
+The code performs an ANOVA test on the flipper lengths of the 3 different species of penguins. The null hypothesis is that all the population means are equal. The alternate hypothesis is that at least one or more of the population means differ. It stores the output of the ANOVA test into a list. The normal probability plot shows a strong positive, linear correlation, therefore, we can assume that the distribution for the residuals of the flipper lengths is normal. The histogram plots the frequency of the residuals, and also shows that the distribution of the residuals is normal.
+
 ```{r EQUAL VARIANCES, echo=TRUE, warning=FALSE, messsage=FALSE}
 
 # 1.Equal variances
 plot(res_anova, which = 3)
 
 ```
+
+
+This is a scale-location plot which plots the fitted values of the flipper length for each penguin on the x-axis and the square root of the residuals. The red line is approximately horizontal, therefore we can assume that the spread of the residuals is roughly equal at all fitted values. there are three clusters for the three different species, but the residuals for each species does not have any patters (randomly spread out).
+
 
 ```{r BOX/VIOLIN PLOTS, echo=TRUE, warning=FALSE, messsage=FALSE}
 
@@ -82,10 +92,15 @@ ggbetweenstats(
 
 ```
 
+
+The ggbetweenstats() function creates a combination of box and violin plots. The shape of the distribution of the flipper lengths of all three penguin species shows that the the flipper lengths are concentrated/common around the median. The box plots also show that the distribution for all three are symmetric. The distribution for the Adelie penguins seems to vary the most among the three distributions, while the distribution for Gentoo penguins seems to vary the least. The distributions for the Adelie and Chinstrap penguins have narrower density on both ends, while the Gentoo distribution has one wider end than the other.
+
 ```{r SUMMARY OF ANOVA, echo=TRUE, warning=FALSE, messsage=FALSE}
 
 summary(res_anova)
 
 ```
  
+ 
+This is the table summary of the ANOVA test. In the table, it provides the degrees of freedom for the species (3-1=2) and residuals/error, sum and mean of squares for both, the f-statistic, and the p-value (the probability of observing this f-statistic). Because the p-value is about 0, we can reject the null hypothesis, that the population means are all identical.
 
